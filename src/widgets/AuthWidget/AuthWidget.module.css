@@ -1,0 +1,38 @@
+.card {
+  width: 360px;
+  padding: 24px 22px 20px;
+  border-radius: 16px;
+  border: 1px solid #dde4f5;
+  background: radial-gradient(
+    circle at top left,
+    #ffffff 0,
+    #f5f7fd 55%,
+    #eef2ff 100%
+  );
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.9);
+}
+
+.title {
+  font-size: 18px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #2b3140;
+  margin: 0 0 20px;
+}
+
+/* поля ввода */
+.inputsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;        /* аккуратные отступы между инпутами/селектом */
+  margin-bottom: 18px;
+}
+
+/* кнопки */
+.buttonsRow {
+  display: flex;
+  gap: 10px;        /* расстояние между кнопками */
+  margin-top: 4px;
+}
