@@ -22,17 +22,15 @@
   margin: 0 0 20px;
 }
 
-/* поля ввода */
 .inputsBlock {
   display: flex;
   flex-direction: column;
-  gap: 12px;        /* аккуратные отступы между инпутами/селектом */
+  gap: 12px;     
   margin-bottom: 18px;
 }
 
-/* кнопки */
 .buttonsRow {
   display: flex;
-  gap: 10px;        /* расстояние между кнопками */
+  gap: 10px;
   margin-top: 4px;
 }
