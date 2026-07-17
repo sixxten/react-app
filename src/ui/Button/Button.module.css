@@ -1,8 +1,13 @@
 .button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.buttonPrimary {
   position: relative;
   padding: 10px 18px;
   border-radius: 999px;
-  border: none;
   background: linear-gradient(135deg, #4b8ef8, #6ea9ff);
   color: #ffffff;
   font-size: 14px;
@@ -12,6 +17,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
+  text-decoration: none;
   box-shadow:
     0 8px 18px rgba(75, 142, 248, 0.35),
     0 0 0 1px rgba(255, 255, 255, 0.5);
@@ -22,7 +28,7 @@
     background 0.12s ease;
 }
 
-.button:hover {
+.buttonPrimary:hover {
   transform: translateY(-1px);
   filter: brightness(1.05);
   box-shadow:
@@ -30,16 +36,27 @@
     0 0 0 1px rgba(255, 255, 255, 0.8);
 }
 
-.button:active {
+.buttonPrimary:active {
   transform: translateY(1px) scale(0.98);
   box-shadow:
     0 4px 10px rgba(75, 142, 248, 0.28),
     0 0 0 1px rgba(226, 234, 255, 0.9);
 }
 
-.button:disabled {
+.buttonPrimary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   box-shadow: none;
   background: #c8d4f5;
+}
+
+.buttonLink {
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  color: #4b8ef8;
+  font-size: 13px;
+  font-weight: 400;
+  text-decoration: underline;
+  box-shadow: none;
 }

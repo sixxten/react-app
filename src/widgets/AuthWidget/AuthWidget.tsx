@@ -1,33 +1,26 @@
 import React, { useState } from "react";
-import { Input } from "../../ui/Input/Input";
-import { Select } from "../../ui/Select/Select";
 import { Button } from "../../ui/Button/Button";
+import { Input } from "../../ui/Input/Input";
 import styles from "./AuthWidget.module.css";
 
-const roleOptions = [
-  { value: "customer", label: "Покупатель" },
-  { value: "manager", label: "Менеджер" },
-  { value: "admin", label: "Администратор" },
-];
-
 export const AuthWidget: React.FC = () => {
+  const [mode, setMode] = useState<"login" | "register">("login");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("customer");
+  const [repeatPassword, setRepeatPassword] = useState("");
 
-  const handleLogin = () => {
-    console.log("login", { email, password, role });
-  };
-
-  const handleRegister = () => {
-    console.log("register", { email, password, role });
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
   };
 
   return (
     <section className={styles.card}>
-      <h1 className={styles.title}>Интернет-магазин</h1>
+      <h2 className={styles.subtitle}>
+        {mode === "login" ? "Авторизация" : "Регистрация"}
+      </h2>
 
-      <div className={styles.inputsBlock}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <Input
           name="email"
           type="email"
@@ -35,6 +28,7 @@ export const AuthWidget: React.FC = () => {
           placeholder="Введите email"
           onChange={setEmail}
         />
+
         <Input
           name="password"
           type="password"
@@ -42,21 +36,48 @@ export const AuthWidget: React.FC = () => {
           placeholder="Введите пароль"
           onChange={setPassword}
         />
-        <Select
-          name="role"
-          value={role}
-          options={roleOptions}
-          onChange={setRole}
-        />
-      </div>
 
-      <div className={styles.buttonsRow}>
-        <Button type="button" onClick={handleLogin}>
-          Вход
-        </Button>
-        <Button type="button" onClick={handleRegister}>
-          Зарегистрироваться
-        </Button>
+        {mode === "register" && (
+          <Input
+            name="repeatPassword"
+            type="password"
+            value={repeatPassword}
+            placeholder="Повторите пароль"
+            onChange={setRepeatPassword}
+          />
+        )}
+
+        <div className={styles.buttonsRow}>
+          <Button type="submit">
+            {mode === "login" ? "Войти" : "Зарегистрироваться"}
+          </Button>
+        </div>
+      </form>
+
+      <div className={styles.switchRow}>
+        {mode === "login" ? (
+          <>
+            <span className={styles.switchText}>Нет аккаунта?</span>
+            <Button
+              type="button"
+              variant="link"
+              onClick={() => setMode("register")}
+            >
+              Зарегистрироваться
+            </Button>
+          </>
+        ) : (
+          <>
+            <span className={styles.switchText}>Уже есть аккаунт?</span>
+            <Button
+              type="button"
+              variant="link"
+              onClick={() => setMode("login")}
+            >
+              Войти
+            </Button>
+          </>
+        )}
       </div>
     </section>
   );

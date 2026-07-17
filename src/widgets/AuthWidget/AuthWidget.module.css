@@ -14,23 +14,33 @@
     0 0 0 1px rgba(255, 255, 255, 0.9);
 }
 
-.title {
-  font-size: 18px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #2b3140;
-  margin: 0 0 20px;
+.subtitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: #4b5563;
+  margin: 0 0 16px;
 }
 
-.inputsBlock {
+.form {
   display: flex;
   flex-direction: column;
-  gap: 12px;     
-  margin-bottom: 18px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
 .buttonsRow {
-  display: flex;
-  gap: 10px;
+  display: block;
   margin-top: 4px;
+}
+
+.switchRow {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.switchText {
+  color: #6b7280;
 }

@@ -1,8 +1,7 @@
-.wrapper {
+.field {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 14px;
 }
 
 .label {

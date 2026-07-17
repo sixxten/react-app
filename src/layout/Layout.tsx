@@ -1,5 +1,8 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
+import { Button } from "../ui/Button/Button";
+import { CartWidget } from "../widgets/CartWidget/CartWidget";
+import { NotificationsWidget } from "../widgets/NotificationsWidget/NotificationsWidget";
 import styles from "./Layout.module.css";
 
 export const Layout: React.FC = () => {
@@ -11,8 +14,13 @@ export const Layout: React.FC = () => {
         </Link>
 
         <nav className={styles.nav}>
-          <Link to="/login" className={styles.authButton}>
-            Авторизоваться
+          <div className={styles.iconGroup}>
+            <NotificationsWidget />
+            <CartWidget />
+          </div>
+
+          <Link to="/auth" className={styles.authLink}>
+            <Button>Авторизоваться</Button>
           </Link>
         </nav>
       </header>

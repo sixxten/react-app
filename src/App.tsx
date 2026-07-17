@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainPage } from "./pages/MainPage/MainPage";
-import { HomePage } from "./pages/HomePage/HomePage";
+import { AuthPage } from "./pages/AuthPage/AuthPage";
 import { Layout } from "./layout/Layout";
 
 const App: React.FC = () => {
@@ -10,7 +10,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<MainPage />} />
-          <Route path="login" element={<HomePage />} />
+          <Route path="auth" element={<AuthPage />} />
           <Route path="*" element={<MainPage />} />
         </Route>
       </Routes>

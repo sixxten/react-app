@@ -19,20 +19,21 @@ export const Input: React.FC<InputProps> = ({
   onChange,
 }) => {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.field}>
       {label && (
         <label className={styles.label} htmlFor={name}>
           {label}
         </label>
       )}
+
       <input
         id={name}
         name={name}
         type={type}
         value={value}
         placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
         className={styles.input}
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   );
