@@ -1,0 +1,13 @@
+{
+  "port": 5000,
+  "jwtSecret": "platform_access_secret_333",
+  "jwtExpiresIn": "7d",
+  "clientUrl": "http://localhost:5173",
+  "database": {
+    "name": "platform_app_db",
+    "user": "platform_user",
+    "password": "platform_pass_9Q2m",
+    "host": "localhost",
+    "port": 5435
+  }
+}
