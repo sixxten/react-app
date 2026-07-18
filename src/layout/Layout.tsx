@@ -8,6 +8,8 @@ import { observer } from "mobx-react-lite";
 import { authStore } from "../store/authStore";
 
 export const Layout: React.FC = observer(() => {
+  const isAdmin = authStore.user?.role === "admin";
+
   return (
     <div className={styles.app}>
       <header className={styles.header}>
@@ -20,6 +22,12 @@ export const Layout: React.FC = observer(() => {
             <NotificationsWidget />
             <CartWidget />
           </div>
+
+          {isAdmin && (
+            <Link to="/admin" className={styles.authLink}>
+              <Button>Товары</Button>
+            </Link>
+          )}
 
           {authStore.isAuth ? (
             <Link to="/profile" className={styles.authLink}>

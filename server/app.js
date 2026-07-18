@@ -6,6 +6,8 @@ const cors = require("cors");
 const router = require("./routes");
 const sequelize = require("./db");
 
+require("./models");
+
 const PORT = config.get("port");
 const app = express();
 
@@ -28,10 +30,10 @@ async function start() {
     console.log("Database is working!");
     app.listen(PORT, () => console.log(`Backend started on ${PORT}`));
   } catch (e) {
-  console.error("Server error:", e);
-  console.error("Message:", e?.message);
-  console.error("Stack:", e?.stack);
-  process.exit(1);
+    console.error("Server error:", e);
+    console.error("Message:", e?.message);
+    console.error("Stack:", e?.stack);
+    process.exit(1);
   }
 }
 

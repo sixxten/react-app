@@ -3,7 +3,7 @@ import styles from "./Input.module.css";
 
 type InputProps = {
   label?: string;
-  name: string;
+  name?: string;
   type?: string;
   value: string;
   placeholder?: string;
