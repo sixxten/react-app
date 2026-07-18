@@ -49,9 +49,12 @@ export const AdminCreateModal: React.FC<Props> = ({ categories, onSuccess, onClo
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        
         <div className={styles.modalHeader}>
           <h3>Новый товар</h3>
-          <Button onClick={onClose}>✕</Button>
+          <div className={styles.closeBtnWrapper}>
+            <Button onClick={onClose}>✕</Button>
+          </div>
         </div>
 
         <div className={styles.form}>
@@ -59,16 +62,18 @@ export const AdminCreateModal: React.FC<Props> = ({ categories, onSuccess, onClo
           <Input label="Описание" placeholder="Короткое описание" value={description} onChange={setDescription} />
           <Input label="Цена" placeholder="Например: 1999" type="number" value={price} onChange={setPrice} />
           
-          <Select
-            label="Категория"
-            value={categoryId}
-            onChange={setCategoryId}
-            options={categories.map((c) => ({ value: c.id, label: c.name }))}
-            placeholder="Выбери категорию"
-          />
+          <div className={styles.selectWrapperFix}>
+            <Select
+              label="Категория"
+              value={categoryId}
+              onChange={setCategoryId}
+              options={categories.map((c) => ({ value: c.id, label: c.name }))}
+              placeholder="Выбери категорию"
+            />
+          </div>
 
-          <div className={styles.field} style={{ marginTop: "16px" }}>
-            <label className={styles.label}>Изображение товара</label>
+          <div className={styles.field} style={{ marginTop: "8px" }}>
+            <label className={styles.imageLabel}>Изображение товара</label>
             <label className={styles.fileLabel}>
               <span>{imageFile ? "Файл выбран" : "Нажми, чтобы загрузить фото"}</span>
               {imageFile && <span className={styles.fileName}>{imageFile.name}</span>}

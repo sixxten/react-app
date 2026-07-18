@@ -14,7 +14,7 @@
 
 .modalContent {
   background: white;
-  padding: 24px;
+  padding: 30px;
   border-radius: 16px;
   width: 100%;
   max-width: 450px;
@@ -24,15 +24,22 @@
 }
 
 .modalHeader {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .modalHeader h3 {
   margin: 0;
-  font-size: 20px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.closeBtnWrapper {
+  position: absolute;
+  right: 0;
 }
 
 .form {
@@ -41,16 +48,26 @@
   gap: 16px;
 }
 
+.form label {
+  margin-left: 4px;
+}
+
+.selectWrapperFix > div > div:first-child {
+  margin-left: 4px;
+}
+
 .field {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.label {
+.imageLabel {
   font-weight: 500;
   font-size: 14px;
   color: #333;
+  text-align: center;
+  margin-left: 0; 
 }
 
 .fileInput {
@@ -69,6 +86,7 @@
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-align: center;
+  margin-left: 0; 
 }
 
 .fileLabel:hover {
@@ -84,4 +102,6 @@
 
 .actions {
   margin-top: 24px;
+  display: flex;
+  justify-content: center;
 }

@@ -7,11 +7,17 @@ import { categoryService, type Category } from "../../shared/services/categorySe
 import { productService, type Product } from "../../shared/services/productService";
 import { AdminProductCard } from "../../widgets/AdminProductCard/AdminProductCard";
 import { AdminCreateModal } from "../../widgets/AdminCreateModal/AdminCreateModal";
+import { AdminEditModal } from "../../widgets/AdminEditModal/AdminEditModal";
+import { ConfirmModal } from "../../widgets/ConfirmModal/ConfirmModal"; 
 
 export const AdminPage: React.FC = observer(() => {
   const isAdmin = authStore.user?.role === "admin";
 
   const [isCreating, setIsCreating] = useState(false);
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  
+  const [deletingProductId, setDeletingProductId] = useState<number | null>(null);
+  
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -32,30 +38,43 @@ export const AdminPage: React.FC = observer(() => {
     setIsCreating(false);
   };
 
-  const handleDelete = (id: number) => {
-    if (window.confirm("Точно удалить?")) {
-      setProducts((prev) => prev.filter((p) => p.id !== id));
+  const handleDeleteClick = (id: number) => {
+    setDeletingProductId(id);
+  };
+
+  const confirmDelete = async () => {
+    if (deletingProductId === null) return;
+    try {
+      await productService.remove(deletingProductId);
+      setProducts((prev) => prev.filter((p) => p.id !== deletingProductId));
+    } catch (error) {
+      console.error("Ошибка удаления:", error);
+      alert("Ошибка при удалении");
+    } finally {
+      setDeletingProductId(null);
     }
   };
 
-  const handleEdit = (id: number) => {
-    alert("Редактирование для ID: " + id);
+  const handleEditOpen = (id: number) => {
+    const productToEdit = products.find(p => p.id === id);
+    if (productToEdit) {
+      setEditingProduct(productToEdit);
+    }
+  };
+
+  const handleProductUpdated = (updatedProduct: Product) => {
+    setProducts((prev) => 
+      prev.map((p) => p.id === updatedProduct.id ? updatedProduct : p)
+    );
+    setEditingProduct(null);
   };
 
   if (!authStore.isAuth) {
-    return (
-      <div className={styles.page}>
-        <p className={styles.placeholder}>Нужно авторизоваться.</p>
-      </div>
-    );
+    return <div className={styles.page}><p className={styles.placeholder}>Нужно авторизоваться.</p></div>;
   }
 
   if (!isAdmin) {
-    return (
-      <div className={styles.page}>
-        <p className={styles.placeholder}>Доступ только для администратора.</p>
-      </div>
-    );
+    return <div className={styles.page}><p className={styles.placeholder}>Доступ только для администратора.</p></div>;
   }
 
   return (
@@ -69,21 +88,33 @@ export const AdminPage: React.FC = observer(() => {
         />
       )}
 
-      <div style={{ 
-        display: "flex", 
-        alignItems: "center", 
-        justifyContent: "center", 
-        position: "relative",
-        marginBottom: "30px" 
-      }}>
-        <h1 style={{ margin: 0 }}>Товары</h1>
-        
-        <div style={{ position: "absolute", right: 0 }}>
+      {editingProduct && (
+        <AdminEditModal
+          product={editingProduct}
+          categories={categories}
+          onSuccess={handleProductUpdated}
+          onClose={() => setEditingProduct(null)}
+        />
+      )}
+
+      {deletingProductId !== null && (
+        <ConfirmModal
+          title="Удаление товара"
+          message="Вы уверены, что хотите удалить этот товар?"
+          onConfirm={confirmDelete}
+          onCancel={() => setDeletingProductId(null)}
+        />
+      )}
+
+      <div className={styles.header}>
+        <div></div> 
+        <h2 className={styles.title}>Товары</h2>
+        <div className={styles.headerActions}>
           <Button onClick={() => setIsCreating(true)}>+ Добавить товар</Button>
         </div>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "20px" }}>
+      <div className={styles.productsGrid}>
         {products.map((p) => (
           <AdminProductCard
             key={p.id}
@@ -91,8 +122,8 @@ export const AdminPage: React.FC = observer(() => {
             title={p.title}
             price={p.price}
             imageUrl={p.imageUrl}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
+            onEdit={handleEditOpen}
+            onDelete={handleDeleteClick}
           />
         ))}
       </div>

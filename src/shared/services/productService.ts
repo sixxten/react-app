@@ -1,3 +1,4 @@
+// src/shared/services/productService.ts
 import { $host, $authHost } from "../http/index";
 
 export type Product = {
@@ -34,7 +35,16 @@ class ProductService {
     const { data } = await $authHost.post<Product>("/products", payload);
     return data;
   }
-  
+
+  async update(id: number, payload: Partial<CreateProductDto>): Promise<Product> {
+    const { data } = await $authHost.patch<Product>(`/products/${id}`, payload);
+    return data;
+  }
+
+  async remove(id: number): Promise<void> {
+    await $authHost.delete(`/products/${id}`);
+  }
+
   async uploadImage(productId: number, file: File): Promise<Product> {
     const form = new FormData();
     form.append("image", file);

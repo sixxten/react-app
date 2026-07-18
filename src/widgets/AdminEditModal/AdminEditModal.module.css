@@ -1,0 +1,94 @@
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #1f2937;
+}
+
+.closeBtnWrapper button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.selectWrapperFix {
+  z-index: 10;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.imageLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.fileLabel {
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+.fileLabel:hover {
+  border-color: #4b8ef8;
+  color: #4b8ef8;
+  background-color: #f8faff;
+}
+
+.fileName {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.fileInput {
+  display: none;
+}
+
+.actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}

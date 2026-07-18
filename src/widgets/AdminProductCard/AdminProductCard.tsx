@@ -1,5 +1,6 @@
 import React from "react";
-import styles from "../ProductCard/ProductCard.module.css";
+import baseStyles from "../ProductCard/ProductCard.module.css";
+import styles from "./AdminProductCard.module.css";
 import { Button } from "../../ui/Button/Button";
 
 type Props = {
@@ -24,28 +25,28 @@ export const AdminProductCard: React.FC<Props> = ({
   const imgSrc = imageUrl ? API_ORIGIN + imageUrl : null;
 
   return (
-    <div className={styles.card}>
-      <div className={styles.media}>
+    <div className={baseStyles.card}>
+      <div className={baseStyles.media}>
         {imgSrc ? (
-          <img className={styles.img} src={imgSrc} alt={title} loading="lazy" />
+          <img className={baseStyles.img} src={imgSrc} alt={title} loading="lazy" />
         ) : (
-          <div className={styles.placeholder}>Нет фото</div>
+          <div className={baseStyles.placeholder}>Нет фото</div>
         )}
       </div>
 
-      <div className={styles.body}>
-        <div className={styles.title} title={title}>
+      <div className={baseStyles.body}>
+        <div className={baseStyles.title} title={title}>
           {title}
         </div>
-        <div className={styles.price}>{price.toLocaleString("ru-RU")} ₽</div>
-        
-        <div style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
-          <div style={{ flex: 1 }}>
-            <Button onClick={() => onEdit(id)}>Ред.</Button>
-          </div>
-          <div style={{ flex: 1 }}>
-            <Button onClick={() => onDelete(id)}>Удалить</Button>
-          </div>
+        <div className={baseStyles.price}>{price.toLocaleString("ru-RU")} ₽</div>
+
+        <div className={styles.adminActions}>
+          <Button onClick={() => onEdit(id)} className={styles.actionBtn}>
+            Ред.
+          </Button>
+          <Button onClick={() => onDelete(id)} className={styles.actionBtn}>
+            Удалить
+          </Button>
         </div>
       </div>
     </div>

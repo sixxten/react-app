@@ -44,7 +44,7 @@ export const CartWidget: React.FC = observer(() => {
             </div>
 
           ) : cartStore.items.length === 0 ? (
-            <div className={styles.empty}>Корзина пока пустая.</div>
+            <div className={styles.empty}>Корзина пустая.</div>
             
           ) : (
             <div className={styles.itemsList}>
