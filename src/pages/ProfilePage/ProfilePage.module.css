@@ -1,85 +1,93 @@
 .page {
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: calc(100vh - 80px);
 }
 
+.container {
+  width: 100%;
+  max-width: 500px; 
+  display: flex;
+  flex-direction: column;
+  gap: 24px; 
+}
+
+
 .title {
-  font-size: 24px;
+  text-align: center;
+  font-size: 28px;
+  color: #1f2937;
+  margin: 0 0 10px 0;
   font-weight: 700;
-  margin-bottom: 24px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
 }
 
 .sectionTitle {
   font-size: 18px;
+  color: #111827;
+  margin: 0 0 24px 0;
   font-weight: 600;
-  margin-bottom: 16px;
-}
-
-.infoBlock {
-  padding: 16px;
-  border-radius: 12px;
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  margin-bottom: 24px;
+  text-align: center; 
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .infoRow {
   display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
+  justify-content: space-between;
+  align-items: center;
+  background: #f4f6f8;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
 }
 
 .infoLabel {
+  color: #6b7280;
+  font-size: 15px;
   font-weight: 500;
-  margin-right: 8px;
-  color: #4b5563;
 }
 
 .infoValue {
-  color: #111827;
-}
-
-.formBlock {
-  padding: 16px;
-  border-radius: 12px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px; 
 }
 
-.field {
+.buttonCenter {
+  margin-top: 12px;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  justify-content: center;
 }
 
-.label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #4b5563;
+.buttonCenter button {
+  min-width: 220px;
 }
 
-.textarea {
-  resize: vertical;
-  min-height: 80px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  font-size: 14px;
-  font-family: inherit;
-}
-
-.textarea:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
-}
-
-.actions {
-  margin-top: 8px;
+.form label {
+  text-transform: none; 
+  letter-spacing: normal; 
+  font-weight: 600; 
+  font-size: 14px; 
+  color: #374151; 
+  display: block; 
+  text-align: left; 
+  margin-left: 4px; 
+  padding-left: 0; 
 }

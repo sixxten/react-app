@@ -25,63 +25,60 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <div className={styles.page}>
-      <div className={styles.topRow}>
+      <div className={styles.container}>
+        
         <h1 className={styles.title}>Личный кабинет</h1>
 
-      </div>
+        <section className={styles.card}>
+          <h2 className={styles.sectionTitle}>Основная информация</h2>
 
-      <section className={styles.infoBlock}>
-        <h2 className={styles.sectionTitle}>Основная информация</h2>
+          <div className={styles.infoRow}>
+            <span className={styles.infoLabel}>Email:</span>
+            <span className={styles.infoValue}>{email}</span>
+          </div>
+          
+          <div className={styles.buttonCenter}>
+            <Button type="button" onClick={() => void handleLogout()}>
+              Выйти из аккаунта
+            </Button>
+          </div>
+        </section>
+        
+        <section className={styles.card}>
+          <h2 className={styles.sectionTitle}>Информация о себе</h2>
 
-        <div className={styles.infoRow}>
-          <span className={styles.infoLabel}>Email:</span>
-          <span className={styles.infoValue}>{email}</span>
-        </div>
-        <Button type="button" onClick={() => void handleLogout()}>
-          Выйти
-        </Button>
-      </section>
-      
-
-      <section className={styles.formBlock}>
-        <h2 className={styles.sectionTitle}>Информация о себе</h2>
-
-        <form className={styles.form} onSubmit={handleSave}>
-          <div className={styles.field}>
-            <label className={styles.label}>Имя</label>
+          <form className={styles.form} onSubmit={handleSave}>
             <Input
+              label="Имя"
               name="firstName"
               value={firstName}
               placeholder="Введите имя"
               onChange={setFirstName}
             />
-          </div>
 
-          <div className={styles.field}>
-            <label className={styles.label}>Фамилия</label>
             <Input
+              label="Фамилия"
               name="lastName"
               value={lastName}
               placeholder="Введите фамилию"
               onChange={setLastName}
             />
-          </div>
 
-          <div className={styles.field}>
-            <label className={styles.label}>Город</label>
             <Input
+              label="Город"
               name="city"
               value={city}
               placeholder="Введите город"
               onChange={setCity}
             />
-          </div>
 
-          <div className={styles.actions}>
-            <Button type="submit">Сохранить</Button>
-          </div>
-        </form>
-      </section>
+            <div className={styles.buttonCenter}>
+              <Button type="submit">Сохранить изменения</Button>
+            </div>
+          </form>
+        </section>
+
+      </div>
     </div>
   );
 };
