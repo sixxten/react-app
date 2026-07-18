@@ -4,8 +4,10 @@ import { Button } from "../ui/Button/Button";
 import { CartWidget } from "../widgets/CartWidget/CartWidget";
 import { NotificationsWidget } from "../widgets/NotificationsWidget/NotificationsWidget";
 import styles from "./Layout.module.css";
+import { observer } from "mobx-react-lite";
+import { authStore } from "../store/authStore";
 
-export const Layout: React.FC = () => {
+export const Layout: React.FC = observer(() => {
   return (
     <div className={styles.app}>
       <header className={styles.header}>
@@ -19,9 +21,15 @@ export const Layout: React.FC = () => {
             <CartWidget />
           </div>
 
-          <Link to="/auth" className={styles.authLink}>
-            <Button>Авторизоваться</Button>
-          </Link>
+          {authStore.isAuth ? (
+            <Link to="/profile" className={styles.authLink}>
+              <Button>Профиль</Button>
+            </Link>
+          ) : (
+            <Link to="/auth" className={styles.authLink}>
+              <Button>Авторизоваться</Button>
+            </Link>
+          )}
         </nav>
       </header>
 
@@ -30,4 +38,4 @@ export const Layout: React.FC = () => {
       </main>
     </div>
   );
-};
+});

@@ -1,19 +1,34 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./ProfilePage.module.css";
 import { Input } from "../../ui/Input/Input";
 import { Button } from "../../ui/Button/Button";
+import { authStore } from "../../store/authStore";
 
 export const ProfilePage: React.FC = () => {
-  const email = "user@example.com";
-  const registrationDate = "01.01.2024";
+  const navigate = useNavigate();
+
+  const email = authStore.user?.email ?? "—";
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [city, setCity] = useState("");
 
+  const handleLogout = async () => {
+    await authStore.logout();
+    navigate("/auth", { replace: true });
+  };
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <div className={styles.page}>
-      <h1 className={styles.title}>Личный кабинет</h1>
+      <div className={styles.topRow}>
+        <h1 className={styles.title}>Личный кабинет</h1>
+
+      </div>
 
       <section className={styles.infoBlock}>
         <h2 className={styles.sectionTitle}>Основная информация</h2>
@@ -22,17 +37,16 @@ export const ProfilePage: React.FC = () => {
           <span className={styles.infoLabel}>Email:</span>
           <span className={styles.infoValue}>{email}</span>
         </div>
-
-        <div className={styles.infoRow}>
-          <span className={styles.infoLabel}>Дата регистрации:</span>
-          <span className={styles.infoValue}>{registrationDate}</span>
-        </div>
+        <Button type="button" onClick={() => void handleLogout()}>
+          Выйти
+        </Button>
       </section>
+      
 
       <section className={styles.formBlock}>
         <h2 className={styles.sectionTitle}>Информация о себе</h2>
 
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSave}>
           <div className={styles.field}>
             <label className={styles.label}>Имя</label>
             <Input
