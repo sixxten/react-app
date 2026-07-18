@@ -16,7 +16,7 @@ export const ProfilePage: React.FC = () => {
 
   const handleLogout = async () => {
     await authStore.logout();
-    navigate("/auth", { replace: true });
+    navigate("/", { replace: true });
   };
 
   const handleSave = (e: React.FormEvent) => {

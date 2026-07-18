@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
 import { authService } from "../shared/services/authService";
 import type { User } from "../shared/services/authService";
+import { cartStore } from "./cartStore"; 
 
 function isRecord(v: unknown): v is Record<string, unknown> {
   return typeof v === "object" && v !== null;
@@ -56,6 +57,8 @@ export class AuthStore {
         this.isAuth = true;
       });
 
+      await cartStore.fetchBasket();
+      
       return { success: true as const };
     } catch (e) {
       const msg = getErrorMessage(e, "Ошибка входа");
@@ -142,7 +145,6 @@ export class AuthStore {
     try {
       await authService.logout();
     } catch (e) {
-      // logout может падать — но мы всё равно чистим токен
       const msg = getErrorMessage(e, "Ошибка выхода");
       runInAction(() => {
         this.error = msg;
@@ -154,6 +156,7 @@ export class AuthStore {
         this.isAuth = false;
         this.isLoading = false;
       });
+      cartStore.resetLocalCart();
     }
   }
 }

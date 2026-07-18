@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./ProductDetailsPage.module.css";
 import { productService, type Product } from "../../shared/services/productService";
 import { cartStore } from "../../store/cartStore";
@@ -10,7 +10,11 @@ const API_ORIGIN = "http://localhost:5000";
 
 export const ProductDetailsPage: React.FC = observer(() => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState<Product | null>(null);
+  
+  // Состояние для показа модального окна
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -24,6 +28,16 @@ export const ProductDetailsPage: React.FC = observer(() => {
 
   const imgSrc = product.imageUrl ? API_ORIGIN + product.imageUrl : null;
   const inCart = cartStore.items.some((item) => item.id === product.id);
+  
+  const isAuth = !!localStorage.getItem("accessToken");
+
+  const handleAddToCart = () => {
+    if (!isAuth) {
+      setShowAuthModal(true);
+      return;
+    }
+    cartStore.addItem(product);
+  };
 
   const formattedPrice = Number(product.price).toLocaleString("ru-RU");
 
@@ -46,13 +60,33 @@ export const ProductDetailsPage: React.FC = observer(() => {
         <div className={styles.actionSector}>
           <div className={styles.price}>{formattedPrice} ₽</div>
           <Button 
-            onClick={() => cartStore.addItem(product)} 
-            disabled={inCart}
+            onClick={handleAddToCart} 
+            disabled={inCart && isAuth}
           >
-            {inCart ? "Уже в корзине" : "Добавить в корзину"}
+            {inCart && isAuth ? "Уже в корзине" : "Добавить в корзину"}
           </Button>
         </div>
       </div>
+
+      {showAuthModal && (
+        <div className={styles.modalOverlay} onClick={() => setShowAuthModal(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button 
+              className={styles.closeModalBtn} 
+              onClick={() => setShowAuthModal(false)}
+            >
+              ✕
+            </button>
+            <p>Вы не авторизованы</p>
+            <button 
+              className={styles.authLinkBtn} 
+              onClick={() => navigate("/auth")}
+            >
+              Авторизоваться
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 });
