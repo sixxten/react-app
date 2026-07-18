@@ -1,36 +1,78 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
 import { CartButton } from "../../ui/CartButton/CartButton";
+import { cartStore } from "../../store/cartStore";
 import styles from "./CartWidget.module.css";
 
-export const CartWidget: React.FC = () => {
+const API_ORIGIN = "http://localhost:5000";
+
+export const CartWidget: React.FC = observer(() => {
   const [isOpen, setIsOpen] = useState(false);
-  const rootRef = useRef<HTMLDivElement | null>(null);
 
   const toggle = () => setIsOpen((prev) => !prev);
   const close = () => setIsOpen(false);
 
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleClick = (event: MouseEvent) => {
-      if (!rootRef.current) return;
-      if (!rootRef.current.contains(event.target as Node)) {
-        close();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [isOpen]);
-
   return (
-    <div className={styles.root} ref={rootRef}>
-      <CartButton count={0} onClick={toggle} />
-      {isOpen && (
-        <div className={styles.popup}>
-          <div className={styles.empty}>Корзина пока пустая.</div>
+    <>
+      <CartButton count={cartStore.totalCount} onClick={toggle} />
+      
+      {isOpen && <div className={styles.backdrop} onClick={close} />}
+
+      <div className={[styles.sidebar, isOpen ? styles.open : ""].join(" ")}>
+        <div className={styles.header}>
+          <h2>Корзина</h2>
+          <button className={styles.closePanelBtn} onClick={close}>✕</button>
         </div>
-      )}
-    </div>
+
+        <div className={styles.body}>
+          {cartStore.items.length === 0 ? (
+            <div className={styles.empty}>Корзина пока пустая.</div>
+          ) : (
+            <div className={styles.itemsList}>
+              {cartStore.items.map((item) => (
+                <div key={item.id} className={styles.cartItem}>
+                  
+                  <div className={styles.itemImageWrapper}>
+                    {item.imageUrl ? (
+                      <img src={API_ORIGIN + item.imageUrl} alt={item.title} />
+                    ) : (
+                      <div className={styles.noImage}>—</div>
+                    )}
+                  </div>
+
+                  <div className={styles.itemInfo}>
+                    <div className={styles.itemTitle} title={item.title}>
+                      {item.title}
+                    </div>
+                    <div className={styles.itemPrice}>
+                      {Number(item.price).toLocaleString("ru-RU")} ₽
+                    </div>
+                  </div>
+                  
+                  <button 
+                    className={styles.removeBtn} 
+                    onClick={() => cartStore.removeItem(item.id)}
+                    title="Удалить"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {cartStore.items.length > 0 && (
+          <div className={styles.footer}>
+            <div className={styles.total}>
+              Итого: <span>{cartStore.totalPrice.toLocaleString("ru-RU")} ₽</span>
+            </div>
+            <div onClick={() => cartStore.clearCart()} className={styles.clearBtn}>
+              Очистить всё
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
-};
+});

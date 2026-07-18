@@ -6,7 +6,7 @@ import { Button } from "../../ui/Button/Button";
 import { categoryService, type Category } from "../../shared/services/categoryService";
 import { productService, type Product } from "../../shared/services/productService";
 import { AdminProductCard } from "../../widgets/AdminProductCard/AdminProductCard";
-import { AdminCreateModal } from "../../widgets/AdminCreateModal/AdminCreateModal"; // Импортируем нашу вынесенную модалку
+import { AdminCreateModal } from "../../widgets/AdminCreateModal/AdminCreateModal";
 
 export const AdminPage: React.FC = observer(() => {
   const isAdmin = authStore.user?.role === "admin";

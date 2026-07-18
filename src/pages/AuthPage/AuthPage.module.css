@@ -1,5 +1,5 @@
 .page {
-  min-height: calc(100vh - 60px); /* 60px — высота твоего header */
+  min-height: calc(100vh - 60px);
   display: grid;
   place-items: center;
   padding: 32px;

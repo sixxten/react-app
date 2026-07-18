@@ -25,10 +25,16 @@ class ProductService {
     return data;
   }
 
+  async getById(id: number): Promise<Product> {
+    const { data } = await $host.get<Product>(`/products/${id}`);
+    return data;
+  }
+
   async create(payload: CreateProductDto): Promise<Product> {
     const { data } = await $authHost.post<Product>("/products", payload);
     return data;
   }
+  
   async uploadImage(productId: number, file: File): Promise<Product> {
     const form = new FormData();
     form.append("image", file);
@@ -40,7 +46,6 @@ class ProductService {
 
     return data;
   }
-
 }
 
 export const productService = new ProductService();
