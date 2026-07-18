@@ -1,75 +1,64 @@
-# React + TypeScript + Vite
+# Интернет-магазин
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Интернет-магазин с каталогом товаров, корзиной, авторизацией и панелью администратора. 
 
-Currently, two official plugins are available:
+**Ссылка на репозиторий:** [github.com/sixxten/react-app](https://github.com/sixxten/react-app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Функционал
+- **Для пользователей:**
+  - Просмотр каталога товаров.
+  - Добавление/удаление товаров в корзину.
+  - Регистрация и авторизация.
+  - Личный кабинет с информацией о пользователе.
+- **Для администратора:**
+  - Защищенная панель администратора (Admin Panel).
+  - Управление товарами (добавление, редактирование, удаление).
+- **Безопасность:**
+  - Хеширование паролей (bcrypt).
+  - Валидация данных (express-validator).
+  - Защита маршрутов с помощью JWT и HTTP-only куки.
 
-## React Compiler
+## Стек технологий
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Frontend:**
+- React
+- TypeScript
+- Vite
+- MobX
+- Axios
 
-## Expanding the ESLint configuration
+**Backend:**
+- Node.js
+- Sequelize
+- SQL
+- Docker
+- JSON Web Token
+- Bcrypt
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Инструкция по запуску
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Для запуска проекта на вашем компьютере должны быть установлены **Node.js** и **Docker** (для базы данных).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 1. Клонирование репозитория
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+git clone https://github.com/sixxten/react-app.git
+cd react-app
 
-```
+### 2. Установка зависимостей
+Установите все необходимые пакеты, находясь в корневой папке проекта: 
+npm install
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3. Запуск базы данных (Docker)
+Перейдите в папку сервера и поднимите контейнер с базой данных (убедитесь, что у вас запущен Docker Desktop):
+cd server
+docker-compose up -d
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Примечание** для сервера всё уже прописано в `server/config/default.json`. Создавать и настраивать `.env` файлы не нужно!
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 4. Запуск проекта
+В проекте настроен пакет `concurrently`, поэтому клиент и сервер запускаются одновременно одной удобной командой из корневой папки:
+npm run dev
 
-```
+**Готово!** 
+- Клиентская часть откроется по адресу: `http://localhost:5173`
+- Серверная часть запустится на порту `5000`.
