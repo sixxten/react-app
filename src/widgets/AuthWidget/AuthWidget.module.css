@@ -50,3 +50,14 @@
 .switchText {
   color: #6b7280;
 }
+
+.serverError {
+  color: #ef4444;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 12px;
+}

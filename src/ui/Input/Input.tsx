@@ -7,6 +7,7 @@ type InputProps = {
   type?: string;
   value: string;
   placeholder?: string;
+  error?: string;
   onChange: (value: string) => void;
 };
 
@@ -16,8 +17,14 @@ export const Input: React.FC<InputProps> = ({
   type = "text",
   value,
   placeholder,
+  error,
   onChange,
 }) => {
+  let inputClass = styles.input;
+  if (error) {
+    inputClass += " " + styles.inputError;
+  }
+
   return (
     <div className={styles.field}>
       {label && (
@@ -32,9 +39,11 @@ export const Input: React.FC<InputProps> = ({
         type={type}
         value={value}
         placeholder={placeholder}
-        className={styles.input}
+        className={inputClass}
         onChange={(e) => onChange(e.target.value)}
       />
+      
+      {error && <span className={styles.errorText}>{error}</span>}
     </div>
   );
 };
