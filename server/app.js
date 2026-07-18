@@ -2,6 +2,7 @@ const express = require("express");
 const config = require("config");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require("path");
 
 const router = require("./routes");
 const sequelize = require("./db");
@@ -10,6 +11,8 @@ require("./models");
 
 const PORT = config.get("port");
 const app = express();
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(express.json());
 app.use(cookieParser());

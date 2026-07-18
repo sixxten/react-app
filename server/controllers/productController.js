@@ -45,6 +45,24 @@ class ProductController {
       return res.status(400).json({ message: e.message });
     }
   }
+
+  async uploadImage(req, res) {
+    try {
+      const { id } = req.params;
+
+      if (!req.file) {
+        return res.status(400).json({ message: "Image file is required" });
+      }
+
+      const imageUrl = `/uploads/${req.file.filename}`;
+
+      const product = await productService.setImage(id, imageUrl);
+
+      return res.json(product);
+    } catch (e) {
+      return res.status(400).json({ message: e.message });
+    }
+  }
 }
 
 module.exports = new ProductController();

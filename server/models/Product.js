@@ -29,6 +29,11 @@ const Product = sequelize.define(
       },
     },
 
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    
     categoryId: {
       type: DataTypes.INTEGER,
       allowNull: false,

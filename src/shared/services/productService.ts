@@ -6,6 +6,7 @@ export type Product = {
   description?: string;
   price: number;
   categoryId: number;
+  imageUrl?: string | null;
   Category?: { id: number; name: string };
   createdAt?: string;
   updatedAt?: string;
@@ -28,6 +29,18 @@ class ProductService {
     const { data } = await $authHost.post<Product>("/products", payload);
     return data;
   }
+  async uploadImage(productId: number, file: File): Promise<Product> {
+    const form = new FormData();
+    form.append("image", file);
+
+    const { data } = await $authHost.post<Product>(
+        `/products/${productId}/image`,
+        form
+    );
+
+    return data;
+  }
+
 }
 
 export const productService = new ProductService();

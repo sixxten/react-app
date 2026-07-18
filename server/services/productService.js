@@ -62,6 +62,14 @@ class ProductService {
     await product.destroy();
     return { message: "Deleted" };
   }
+  async setImage(id, imageUrl) {
+    const product = await Product.findByPk(id);
+    if (!product) throw new Error("Product not found");
+
+    await product.update({ imageUrl });
+    return Product.findByPk(id, { include: [{ model: Category }] });
+  }
 }
+
 
 module.exports = new ProductService();

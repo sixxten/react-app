@@ -4,6 +4,7 @@ import { Input } from "../../ui/Input/Input";
 import { Select } from "../../ui/Select/Select";
 import { categoryService, type Category } from "../../shared/services/categoryService";
 import { productService, type Product } from "../../shared/services/productService";
+import { ProductCard } from "../../widgets/ProductCard/ProductCard";
 
 export const MainPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -50,14 +51,12 @@ export const MainPage: React.FC = () => {
 
           <div className={styles.controls}>
             <Input
-              label="Поиск"
               placeholder="Найти товар..."
               value={query}
               onChange={setQuery}
             />
 
             <Select
-              label="Категория"
               value={categoryId}
               onChange={setCategoryId}
               options={categoryOptions}
@@ -69,19 +68,16 @@ export const MainPage: React.FC = () => {
 
       <div className={styles.grid}>
         {filtered.map((p) => (
-          <div key={p.id} className={styles.card}>
-            <div className={styles.cardTop}>
-              <div className={styles.cardTitle}>{p.title}</div>
-              <div className={styles.cardPrice}>{p.price} ₽</div>
-            </div>
-
-          </div>
+          <ProductCard
+            key={p.id}
+            id={p.id}
+            title={p.title}
+            price={p.price}
+            imageUrl={p.imageUrl ? "http://localhost:5000" + p.imageUrl : undefined}
+          />
         ))}
       </div>
+
     </div>
   );
 };
-
-
-
-

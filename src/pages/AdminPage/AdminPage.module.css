@@ -1,14 +1,12 @@
 .page {
-  max-width: 800px;
+  max-width: 1200px; 
   margin: 0 auto;
-}
-
-.title {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 16px;
+  padding: 20px;
 }
 
 .placeholder {
   color: #6b7280;
+  text-align: center;
+  margin-top: 50px;
+  font-size: 18px;
 }
