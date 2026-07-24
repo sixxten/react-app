@@ -27,6 +27,7 @@
   height: 20px;
   object-fit: contain;
   display: block;
+  transform: translateY(1.5px);
 }
 
 .dot {

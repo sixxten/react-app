@@ -39,16 +39,20 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
+  height: 100%;
 }
 
 .iconGroup {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-right: 12px; 
+  justify-content: center;
+  gap: 12px;
+  margin-right: 12px;
 }
 
 .authLink {
   text-decoration: none;
+  display: flex;
+  align-items: center;
 }

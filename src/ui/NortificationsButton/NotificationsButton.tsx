@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./NotificationsButton.module.css";
-import bellIcon from "../../assets/bell.png";
+import { Bell } from "lucide-react";
 
 type NotificationsButtonProps = {
   count?: number;
@@ -15,11 +15,8 @@ export const NotificationsButton: React.FC<NotificationsButtonProps> = ({
 
   return (
     <button className={styles.button} type="button" onClick={onClick}>
-      <img
-        src={bellIcon}
-        alt="Уведомления"
-        className={styles.icon}
-      />
+      <Bell className={styles.icon} size={28} color="#333" />
+      
       {hasUnread && <span className={styles.dot} />}
     </button>
   );

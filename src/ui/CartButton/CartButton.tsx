@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CartButton.module.css";
-import cartIcon from "../../assets/cart.png";
+import { ShoppingCart } from "lucide-react"; 
 
 type CartButtonProps = {
   count?: number;
@@ -13,11 +13,8 @@ export const CartButton: React.FC<CartButtonProps> = ({
 }) => {
   return (
     <button className={styles.button} type="button" onClick={onClick}>
-      <img
-        src={cartIcon}
-        alt="Корзина"
-        className={styles.icon}
-      />
+      <ShoppingCart size={28} color="#333" className={styles.icon} />
+      
       {count > 0 && <span className={styles.badge}>{count}</span>}
     </button>
   );

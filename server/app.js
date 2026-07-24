@@ -6,6 +6,7 @@ const path = require("path");
 
 const router = require("./routes");
 const sequelize = require("./db");
+const seedDatabase = require("./seed");
 
 require("./models");
 
@@ -29,7 +30,9 @@ app.use("/api", router);
 async function start() {
   try {
     await sequelize.authenticate();
-    await sequelize.sync();
+    await sequelize.sync()
+    
+    await seedDatabase();
     console.log("Database is working!");
     app.listen(PORT, () => console.log(`Backend started on ${PORT}`));
   } catch (e) {
